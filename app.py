@@ -5,11 +5,11 @@ import os
 # Get credentials
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# st.title("Japaense Email Assistant")
+st.title("Japaense Email Assistant")
 
-# # Get prompts from user
-# system_prompt = st.text_area("Enter system prompt:", "You are a helpful assistant.")
-# user_prompt = st.text_area("Enter your prompt:")
+# Get prompts from user
+system_prompt = st.text_area("Enter system prompt:", "You are a helpful assistant.")
+user_prompt = st.text_area("Enter your prompt:")
 
 def get_chatgpt_response(system_prompt, user_prompt):
     messages = [
@@ -17,7 +17,7 @@ def get_chatgpt_response(system_prompt, user_prompt):
         {'role': 'user', 'content': user_prompt},
     ]
     response = openai.chat.completions.create(
-        model="gpt-4",
+        model="gpt-4o",
         messages=messages,
         max_tokens=150,
         n=1,
@@ -27,7 +27,10 @@ def get_chatgpt_response(system_prompt, user_prompt):
 
     return response.choices[0].message.content
 
-system_prompt = "You are an assistant."
-user_prompt = "What can you help me out with?"
-
-print(get_chatgpt_response(system_prompt, user_prompt))
+# Display response to user
+if st.button("Send"):
+    if user_prompt:
+        resposne = get_chatgpt_response(system_prompt, user_prompt)
+        st.write(f"ChatGPT: {resposne}")
+    else:
+        st.write("Please enter a prompt.")
