@@ -18,8 +18,16 @@ Here are some examples of how to structure the emails:
 
 {emails_json}
 
+Also, below are things to keep in mind when generating Japanese emails:
+- When using consecutive dash-like characters (-, =, _, etc.) to create lines for formatting,
+make sure that there is no other text on that line so the line stands out.
+- Special characters like circles are used as placeholders in the sample emails I sent you.
+These are placeholders for company names, poeple's names, or similar. Please encorporate this
+into your generated emails appropriately.
+
 Now, please generate an email based on the following input.
 """
+
 # Get user prompt
 user_prompt = st.text_area("Enter your prompt:")
 
@@ -43,6 +51,7 @@ def get_chatgpt_response(system_prompt, user_prompt):
 if st.button("Send"):
     if user_prompt:
         resposne = get_chatgpt_response(system_prompt, user_prompt)
-        st.write(f"ChatGPT: \n{resposne}")
+        st.write(f"ChatGPT")
+        st.write(resposne)
     else:
         st.write("Please enter a prompt.")
